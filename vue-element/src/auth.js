@@ -6,10 +6,14 @@ const whiteList = ['/login']
 
 router.beforeEach((to, from, next) => {
     document.title = getPageTitle(to.meta.title)
-    if (whiteList.indexOf(to.path) !== -1) {
-        next()
+    if (getToken()) {
+        if (whiteList.indexOf(to.path) !== -1) {
+            next('/')
+        } else {
+            next()
+        }
     } else {
-        if (getToken()) {
+        if (whiteList.indexOf(to.path) !== -1) {
             next()
         } else {
             next('/login')

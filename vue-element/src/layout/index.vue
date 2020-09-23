@@ -1,28 +1,41 @@
 <template>
-  <div>
-    Layout {{ this.$store.state.count }}
-    <el-button @click="increment">累加</el-button>
-    <el-button @click="delToken">删除Token</el-button>
+  <div class="app-wrapper">
+    <sidebar class="sidebar-container"/>
+    <div class="main-container">
+      <div>
+        <navbar/>
+      </div>
+      主内容
+    </div>
   </div>
 </template>
 
 <script>
-import {removeToken} from '@/utils/token'
+import Sidebar from '@/components/sidebar'
+import Navbar from '@/components/navbar'
 
 export default {
   name: "Layout",
-  methods: {
-    increment() {
-      this.$store.commit('increment')
-    },
-    delToken() {
-      removeToken()
-      location.reload()
-    }
+  components: {
+    Sidebar,
+    Navbar
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.app-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
 
+.fixed-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9;
+  width: calc(100% - 210px);
+  transition: width 0.28s;
+}
 </style>
